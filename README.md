@@ -3,6 +3,8 @@ A (work in progress) multi-account manager for remarkable
 
 This Readme helps drafting remarvin for now. Once it is in a working state, the contents will be moved to a new file or they will be removed.
 
+remarvin will be built with [simple app script](https://rmkit.dev/apps/sas)
+
 ## Basic idea
 1. remarvin starts at boot instead of/before xochitl/launchers
 2. Accounts are managed as bind mounts or gocryptfs mounts. e.g. /home/root/.local-user1 is mounted to /home/root/.local
