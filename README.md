@@ -13,8 +13,8 @@ This Readme helps drafting remarvin for now. Once it is in a working state, the 
     * Select account
     * Select launcher
     * Launch selected launcher
-    * **Optional:** Decrypt (if selected account is encrypted)
+    * *Optional:* Decrypt (if selected account is encrypted)
     * Danger Zone
       * Delete an account
-      * **Optional:** Encrypt an account
-      * **Optional:** Permanently decrypt account
+      * *Optional:* Encrypt an account
+      * *Optional:* Permanently decrypt account
