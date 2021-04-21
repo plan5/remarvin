@@ -6,15 +6,15 @@ This Readme helps drafting remarvin for now. Once it is in a working state, the 
 ## Basic idea
 1. remarvin starts at boot instead of/before xochitl/launchers
 2. Accounts are managed as bind mounts or gocryptfs mounts. e.g. /home/root/.local-user1 is mounted to /home/root/.local
-  * Not necessarily /home/root/.local What is the best directory level to do this? Using /home/root could interfere with toltec files.
+    * Not necessarily /home/root/.local What is the best directory level to do this? Using /home/root could interfere with toltec files.
 3. To change the user, the device needs to reboot.
 4. Available functions in the GUI:
-  * Create new account
-  * Select account
-  * Select launcher
-  * Launch selected launcher
-  * **Optional:** Decrypt (if selected account is encrypted)
-  * Danger Zone
-    * Delete an account
-    * **Optional:** Encrypt an account
-    * **Optional:** Permanently decrypt account
+    * Create new account
+    * Select account
+    * Select launcher
+    * Launch selected launcher
+    * **Optional:** Decrypt (if selected account is encrypted)
+    * Danger Zone
+      * Delete an account
+      * **Optional:** Encrypt an account
+      * **Optional:** Permanently decrypt account
