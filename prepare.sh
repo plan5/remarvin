@@ -18,6 +18,7 @@ read -p "Do you wish to install this program?" yn
 
 function dont_wreak_havoc(){
     echo "This script is still under revision. Adapt line 15 to make it run."
+    echo "Especially, it will cause separate xochitl.conf files to be created, potentially locking you out from ssh because a new root password will be generated."
 }
 
 function wreak_havoc(){
