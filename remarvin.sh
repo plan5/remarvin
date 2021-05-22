@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export LD_PRELOAD=/opt/lib/librm2fb_client.so.1.0.1
+#export LD_PRELOAD=/opt/lib/librm2fb_client.so.1.0.1
+
+export LAUNCHER=xochitl
 
 set -o noglob
 
@@ -24,25 +26,29 @@ display(){
 }
 
 buttonpress(){
+  echo button pressed
   button="$(echo "${RESULT}" | sed 's/^selected:\s*//; s/\s* -.*$//' | xargs)"
+  set +f
   case $button in
-    "Profile 1")
-       umount /home/root/.local/share; mount --bind /home/root/.local/share-1 /home/root/.local/share
+    "Profile-"*)
+       echo Profile Button pressed
+       umount /home/root/.local/share; mount --bind /home/root/.local/$button /home/root/.local/share
        ;;
-    "Profile 2")
-       umount /home/root/.local/share; mount --bind /home/root/.local/share-2 /home/root/.local/share
-       ;;
-    "xochitl")
-       systemctl start xochitl;
+    "$LAUNCHER")
+       systemctl start $LAUNCHER;
        exit 0
        ;;
     "Decrypt")
-       nohup /home/root/simple-scripts/gocryptfs.sh;
+       systemctl start gocryptfs-gui.service;
+       #/home/root/simple-scripts/gocryptfs.sh
+       exit 0
        ;;
-    "*")
+    *)
+       echo Any key pressed
        return true
        ;;
   esac
+  set -f
 }
 
 run_checks(){
@@ -54,14 +60,24 @@ function decrypt(){
 	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN||password="Mount failed!"
 }
 
+#Delay start a little for better drawing
+echo ""|simple
+sleep 1
 
 while :;do
   reset
   add justify left
 
-  ui button 150 150  800 150 Profile 1
-  ui button 150 next 800 150 Profile 2
-  ui button 150 next 800 150 xochitl
+  ui label  150 150  800 150 reMarvin
+  # Enable globs (Wildcards)
+  set +f
+  for i in /home/root/.local/Profile-*
+    do
+      ui button 150 next 800 150 $(basename $i)
+    done
+  # Disable globs (Wildcards)
+  set -f
+  ui button 150 next 800 150 $LAUNCHER
   ui button 150 next 800 150 Decrypt
 
   display
