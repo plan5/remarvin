@@ -13,7 +13,7 @@ read -p "Do you understand that you are about to make changes to your system tha
 read -p "Do you wish to install this program?" yn
     case $response in
         [Yy]* ) dont_wreak_havoc(); break;;
-        * ) echo "Please answer yes or no.";;
+        * ) exit 0;;
     esac
 
 function dont_wreak_havoc(){
