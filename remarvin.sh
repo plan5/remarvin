@@ -60,10 +60,7 @@ function decrypt(){
 	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN||password="Mount failed!"
 }
 
-#Delay start a little for better drawing
-echo ""|simple
-sleep 1
-
+function mainloop(){
 while :;do
   reset
   add justify left
@@ -83,3 +80,11 @@ while :;do
   display
   buttonpress
 done
+}
+
+#Delay start a little to avoid display glitch
+echo ""|simple
+sleep 1
+
+mainloop
+
