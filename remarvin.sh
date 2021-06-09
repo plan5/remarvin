@@ -43,6 +43,9 @@ buttonpress(){
        #/home/root/simple-scripts/gocryptfs.sh
        exit 0
        ;;
+    "Quit")
+       exit 0
+       ;;
     *)
        echo Any key pressed
        return true
@@ -82,9 +85,15 @@ while :;do
 done
 }
 
+function warning(){
+  add justify left
+  ui label 150 150 800 150 reMarvin has not been set up properly.
+  ui button 150 next 800 150 Quit
+}
+
 #Delay start a little to avoid display glitch
 echo ""|simple
 sleep 1
 
-mainloop
-
+#Check if marker file equals expected value to know everything is right, then run main loop. Else spit out warning.
+echo "remarvin" | diff /home/root/.local/share/remarvin - && mainloop || warning
