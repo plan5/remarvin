@@ -8,21 +8,25 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
 
 **Instructions below.**
 
-### Basic idea
-1. remarvin starts at boot instead of/before xochitl/launchers
-2. Accounts are managed as bind mounts or gocryptfs mounts. e.g. /home/root/.local-user1 is mounted to /home/root/.local
-    * Not necessarily /home/root/.local What is the best directory level to do this? Using /home/root could interfere with toltec files.
-3. To change the user, the device needs to reboot.
-4. Available functions in the GUI:
+### Status / Ideas
+1. remarvin can be started by a launcher or at boot instead of/before xochitl/launchers
+    * I haven't found a way to launch gocryptfs from a .service file yet, where it doesn't die at some point.
+3. Accounts are managed as bind mounts or gocryptfs mounts. e.g. /home/root/.local/Profile-Main is mounted to /home/root/.local/share
+    * This currently doesn't include ~/.config/remarkable/xochitl.conf so there are no separate user settings including cloud sync, which may cause problems!
+4. To change the user, the script needs to be rerun (or the device needs a reboot, if launched before).
+5. Available functions in the GUI:
     * Create new account
     * Select account
-    * Select launcher
-    * Launch selected launcher
-    * *Optional:* Decrypt (if selected account is encrypted)
-    * Danger Zone
-      * Delete an account
+    * Decrypt (if selected account is encrypted)
+    * Danger Zone (partially possible with included shell scripts)
       * *Optional:* Encrypt an account
       * *Optional:* Permanently decrypt account
+6. Future functions in the GUI:
+    * Select launcher (if run before launchers).
+    * Start selected launcher
+    * Delete an account
+    * Scroll account list (currently it may overflow if too many accounts exist)
+
 
 ### Setting it up
 1. **Create a Backup!** Seriously, things might still go wrong.
