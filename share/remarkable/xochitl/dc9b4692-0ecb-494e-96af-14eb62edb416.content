@@ -1,0 +1,45 @@
+{
+    "coverPageNumber": -1,
+    "documentMetadata": {
+    },
+    "dummyDocument": false,
+    "extraMetadata": {
+        "LastBallpointv2Color": "Black",
+        "LastBallpointv2Size": "2",
+        "LastEraseSectionColor": "Black",
+        "LastEraseSectionSize": "2",
+        "LastEraserColor": "Black",
+        "LastEraserSize": "2",
+        "LastEraserTool": "EraseSection",
+        "LastFinelinerv2Color": "Black",
+        "LastFinelinerv2Size": "2",
+        "LastMarkerv2Color": "Black",
+        "LastMarkerv2Size": "5",
+        "LastPen": "Markerv2",
+        "LastPencilv2Color": "Black",
+        "LastPencilv2Size": "1",
+        "LastSelectionToolColor": "Black",
+        "LastSelectionToolSize": "2",
+        "LastTool": "Markerv2"
+    },
+    "fileType": "notebook",
+    "fontName": "",
+    "formatVersion": 1,
+    "lineHeight": -1,
+    "margins": 125,
+    "orientation": "portrait",
+    "originalPageCount": -1,
+    "pageCount": 1,
+    "pageTags": [
+    ],
+    "pages": [
+        "f764d4f1-6f0b-4e5c-b084-28a0f9178bde"
+    ],
+    "redirectionPageMap": [
+    ],
+    "sizeInBytes": "171305",
+    "tags": [
+    ],
+    "textAlignment": "justify",
+    "textScale": 1
+}
