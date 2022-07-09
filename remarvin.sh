@@ -55,7 +55,7 @@ buttonpress(){
 			#/opt/bin/gocryptfs-gui.sh
 			echo "Profile appears to be encrypted"
 			export MESSAGEA="Profile appears to be encrypted."
-			export MESSAGEB="Decrypt with gocryptfs-gui."
+			export MESSAGEB="You should decrypt before\nstarting xochitl."
 		else
 			echo "Profile appears not to be encrypted."
 			export MESSAGEA="Profile appears not to be encrypted."
