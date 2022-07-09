@@ -70,9 +70,7 @@ function buttonpress(){
        clean_environment
        ;;
     "More Profiles")
-        [[ $PAGECOUNT < $(( $PAGECOUNT / 4 + 1)) ]] &&\
-               PAGECOUNT=$(( $PAGECOUNT + 1 )) ||\
-               PAGECOUNT=0
+       export PAGECOUNT=$(( $PAGECOUNT + 1 ))
        ;;
     *)
        echo Any key pressed
@@ -82,15 +80,19 @@ function buttonpress(){
   set -f
 }
 function ui_scroller(){
-        argnum = $#
-        print_profiles $@
-        for i in ${@:$PAGECOUNT:4}
+	pagelist=${@:$(( 1 + $PAGECOUNT * 4 )):4}
+	if [[ ${#pagelist} == 0 ]]
+	then
+	  export PAGECOUNT=0
+	  pagelist=${@:$(( 1 + $PAGECOUNT * 4 )):4}
+	fi
+        for i in $pagelist
           do
             ui button 150 next 800 150 $(basename $i)
           done
-        if [[ $argnum > 4 ]]
+        if [[ $# > 4 ]]
         then
-            ui button 150 next 800 150 More Profiles
+            ui button 150 next 800 150 "More Profiles"
         fi
 }
 
@@ -176,7 +178,7 @@ function scene_setup(){
   ui label 150 next 800 150 
   ui label 150 next 800 150  "Welcome!"
   ui label 150 next 800 150 
-  ui label 150 next 800 150  "reMarvin has not been set up yet.
+  ui label 150 next 800 150  "reMarvin has not been set up yet."
   ui label 150 next 800 150 
   ui label 150 next 800 150  "ATTENTION: This Code is not well tested."
   ui label 150 next 800 150 
@@ -297,7 +299,7 @@ echo ""|simple
 sleep 1
 
 # If reMarvin is not yet set up, run setup function.
-[[ -f /home/root/.local/share/remarvin ]] || scene_setup
+[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
 
 # If profile is already mounted, ask to unmount
 check_mountpoint && scene_ask_reset && clean_environment 
@@ -309,3 +311,4 @@ if [[ -f /home/root/.local/share/remarvin ]];
 	else
 		scene_warning
 fi
+
