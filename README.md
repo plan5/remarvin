@@ -18,8 +18,8 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
     * Select account
     * Select launcher
     * Launch selected launcher
-    * *Optional:* Decrypt (if selected account is encrypted)
-    * Danger Zone
+    * Decrypt (if selected account is encrypted)
+    * Danger Zone (partially possible with included shell scripts)
       * Delete an account
       * *Optional:* Encrypt an account
       * *Optional:* Permanently decrypt account
