@@ -46,6 +46,12 @@ function setup(){
     
 }
 
+if [[ -f /home/root/.local/share/remarvin ]];
+then
+	echo "reMarvin seems to be set up already."
+	exit 0
+fi
+
 echo "ATTENTION: This Code is not well tested."
 echo
 echo "It should work but make sure to have a backup of"
