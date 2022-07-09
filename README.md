@@ -4,7 +4,9 @@ A (work in progress) multi-account manager for remarkable
 
 This Readme helps drafting remarvin for now. Once it is in a working state, the contents will be moved to a new file or they will be removed.
 
-remarvin will be built with [simple app script](https://rmkit.dev/apps/sas)
+remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
+
+**Instructions below.**
 
 ### Basic idea
 1. remarvin starts at boot instead of/before xochitl/launchers
