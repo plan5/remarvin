@@ -97,17 +97,6 @@ function ui_scroller(){
 }
 
 # Scenes
-function scene_addprofile(){
-  reset
-  add justify left
-  ui label  150 150  800 150 reMarvin - Add Profile
-  ui label  150 next  800 150 Please enter Name for new Profile
-  ui textinput  150 next  800 150 
-  display
-  buttonpress
-  NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
-  mkdir /home/root/.local/Profile-$NEWNAME
-}
 function scene_main(){
 while :;do
   reset
@@ -127,6 +116,17 @@ while :;do
   display
   buttonpress
 done
+}
+function scene_addprofile(){
+  reset
+  add justify left
+  ui label  150 150  800 150 reMarvin - Add Profile
+  ui label  150 next  800 150 Please enter Name for new Profile
+  ui textinput  150 next  800 150 
+  display
+  buttonpress
+  NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+  mkdir /home/root/.local/Profile-$NEWNAME
 }
 function scene_ask_reset(){
         reset
@@ -195,6 +195,9 @@ function scene_encrypt(){
 		display
 		return 0
 	fi
+}
+function scene_undo_encrypt(){
+	return 0
 }
 
 # Initial Setup functions and scenes
