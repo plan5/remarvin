@@ -30,6 +30,7 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
 ### Prerequisites
 You may install the following as packages from [toltec](https://github.com/toltec-dev/toltec).
 * reMarvin uses rmkit `simple` to draw its interface.
+* For `simple`, `rm2fb` is needed (this will be the available if you use a launcher).
 * For decryption, `gocryptfs` is needed.
 
 ### Setting it up
@@ -38,11 +39,13 @@ Your notebooks will be moved around and might be deleted during setup (although 
 
 2. **Disable cloud synchronization!** The user settings currently remain the same across profiles. That means you may lose files if you change your profile and keep synchronizing. Alternatively, you can take care not to activate Wi-Fi.
 
-3. On your device: Run `prepare.sh` to set up your environment. This makes sure that xochitl can't write any notebooks to the empty profile when no profile is loaded. It also adds a warning about being write-only.
+3. On your device: Run `remarvin.sh` (requires `rm2fb`). In a standard environment, it will offer to set up your environment. This makes sure that xochitl can't write any notebooks to the empty profile when no profile is loaded (using `chattr +i`).
 
-4. On your device: Run remarvin.sh (requires rm2fb). You can also add a launcher file to run it from there. You can close remarvin after opening a profile.
+4. Remarvin will now show you a list with one entry: `Profile-Main`. Tap on it to mount it. You will see a message in the bottom if it worked. (Restart reMarvin to unmount).
 
-5. (Optional) Install gocryptfs via toltec and set up encryption by running the following inside /home/root/.local/Profile-Main. You will be asked to choose/enter a password. Depending on the size of your notebook collection, this may take a while. Make sure the rM is charged. Afterwards, reMarvin will recognize the encrypted profile and offer to decrypt it.
+5. (Optional): Add another profile via the `Add profile` button. You will be prompted a name for the new profile. Select it and run xochitl to use it. **Again, remember not to use cloud synchronization in this case.**
+
+6. (Optional) Install gocryptfs via toltec and set up encryption by running the following inside /home/root/.local/Profile-Main. You will be asked to choose/enter a password. Depending on the size of your notebook collection, this may take a while. Make sure the rM is charged. Afterwards, reMarvin will recognize the encrypted profile and offer to decrypt it.
 ```
 mv remarkable remarkable-temp
 mkdir remarkable remarkable-cipher
