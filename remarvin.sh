@@ -169,6 +169,33 @@ function scene_decrypt(){
         display
         password_decrypt
 }
+function scene_encrypt(){
+	if run_gocryptfs_checks 
+	then
+		reset
+		add justify left
+
+		# Add Input field
+		ui label 50 160 1300 100 You need to specify a password.
+		ui label 50 next 1300 100 Enter password above, then press \'done\'
+		ui label 50 next 1300 100 $MESSAGEA
+		ui textinput 50 50 1300 100
+
+		display
+		password_encrypt
+		return 0
+	else
+		reset
+		add justify left
+
+		# Add Input field
+		ui label 50 160 1300 100 Error: Not all required tools are installed.
+		ui button 50 next 1300 100 Go back
+
+		display
+		return 0
+	fi
+}
 
 # Initial Setup functions and scenes
 function scene_setup(){
@@ -258,6 +285,29 @@ function setup_profiles(){
     # Set immutable attribute to placeholder files in mountpoint
     chattr -R +i share/remarkable share/remarvin
     
+}
+
+# Encryption functions
+function password_encrypt(){
+        newpass="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+	cd $LOCAL/share/
+	mv remarkable remarkable-tmp
+	mkdir remarkable remarkable-cipher
+	echo $newpass|gocryptfs -init remarkable-cipher
+	echo $newpass|gocryptfs remarkable-cipher remarkable
+	mv remarkable-tmp/* remarkable &&\
+                rm -r remarkable-tmp
+}
+function undo_encrypt(){
+	# This function assumes that the directory is already mounted and decrypted. The corresponding scene should take care of that.
+	kill $(pgrep xochitl)
+	cd $LOCAL/share/
+	mkdir remarkable-tmp
+	mv remarkable/* remarkable-tmp/
+	fusermount -u remarkable &&\
+            chattr -R -i remarkable remarvin &&\
+            rm -r remarvin remarkable remarkable-cipher&&\
+            mv remarkable-tmp remarkable
 }
 
 # Mounting and decryption functions
