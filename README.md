@@ -9,7 +9,7 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
 **Instructions below.**
 
 ### Status / Ideas
-1. remarvin can be started by a launcher or at boot instead of/before xochitl/launchers
+1. remarvin can be started by a launcher ~~or at boot instead of/before xochitl/launchers~~
     * I haven't found a way to launch gocryptfs from a .service file yet, where it doesn't die at some point.
 3. Accounts are managed as bind mounts or gocryptfs mounts. e.g. /home/root/.local/Profile-Main is mounted to /home/root/.local/share
     * This currently doesn't include ~/.config/remarkable/xochitl.conf so there are no separate user settings including cloud sync, which may cause problems!
@@ -27,6 +27,10 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
     * Delete an account
     * Scroll account list (currently it may overflow if too many accounts exist)
 
+### Prerequisites
+You may install the following as packages from [toltec](https://github.com/toltec-dev/toltec).
+* reMarvin uses rmkit `simple` to draw its interface.
+* For decryption, `gocryptfs` is needed.
 
 ### Setting it up
 1. **Create a Backup!** Seriously, things might still go wrong.
