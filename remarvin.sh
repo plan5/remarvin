@@ -299,7 +299,7 @@ echo ""|simple
 sleep 1
 
 # If reMarvin is not yet set up, run setup function.
-[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
+#[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
 
 # If profile is already mounted, ask to unmount
 check_mountpoint && scene_ask_reset && clean_environment 
