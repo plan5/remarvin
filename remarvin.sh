@@ -74,7 +74,7 @@ function buttonpress(){
        ;;
     *)
        echo Any key pressed
-       return true
+       return 0
        ;;
   esac
   set -f
@@ -199,8 +199,8 @@ function scene_setup(){
   ui button 150 next 800 150  "No"
 
   display
-  buttonpress
-  [[ ${RESULT} == "Yes" ]] && confirm_prepare || exit 0
+  echo $RESULT
+  [[ $RESULT == "selected: Yes" ]] && echo "Asking confirmation" && confirm_prepare || exit 0
 }
 function confirm_prepare(){
   reset
@@ -213,16 +213,17 @@ function confirm_prepare(){
   ui button 150 next 800 150  "Yes"
   ui label 150 next 800 150 
   ui button 150 next 800 150  "No, abort!"
+
   display
-  buttonpress
-  [[ ${RESULT} == "Yes" ]] && setup_profiles || exit 0
+  echo $RESULT
+  [[ $RESULT == "selected: Yes" ]] && setup_profiles || exit 0
 }
 function prepare_abort(){
 	echo "Goodbye."
 }
 function setup_profiles(){
     systemctl stop xochitl
-    pgrep xochitl|xargs kill -9
+    kill $(pgrep xochitl)
     
     cd "$LOCAL"
 
@@ -299,7 +300,7 @@ echo ""|simple
 sleep 1
 
 # If reMarvin is not yet set up, run setup function.
-#[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
+[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
 
 # If profile is already mounted, ask to unmount
 check_mountpoint && scene_ask_reset && clean_environment 
