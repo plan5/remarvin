@@ -46,7 +46,7 @@ function buttonpress(){
 			#/opt/bin/gocryptfs-gui.sh
 			echo "Profile appears to be encrypted"
 			export MESSAGEA="Profile appears to be encrypted."
-			export MESSAGEB="You should decrypt before\nstarting xochitl."
+			export MESSAGEB="You should decrypt before starting xochitl."
 		else
 			echo "Profile appears not to be encrypted."
 			export MESSAGEA="Profile appears not to be encrypted."
@@ -60,8 +60,17 @@ function buttonpress(){
     "Decrypt")
        scene_decrypt
        ;;
+    "Encrypt Profile")
+       scene_encrypt
+       ;;
+    "Undo Encryption")
+       scene_undo_encrypt
+       ;;
     "Add Profile")
        scene_addprofile
+       ;;
+    "Back")
+       scene_main
        ;;
     "Quit")
        exit 0
@@ -95,19 +104,12 @@ function ui_scroller(){
             ui button 150 next 800 150 "More Profiles"
         fi
 }
+function confirmation_dialog(){
+	# This function will take a message as an argument, print it and require the user to confirm
+	return
+}
 
 # Scenes
-function scene_addprofile(){
-  reset
-  add justify left
-  ui label  150 150  800 150 reMarvin - Add Profile
-  ui label  150 next  800 150 Please enter Name for new Profile
-  ui textinput  150 next  800 150 
-  display
-  buttonpress
-  NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
-  mkdir /home/root/.local/Profile-$NEWNAME
-}
 function scene_main(){
 while :;do
   reset
@@ -119,7 +121,7 @@ while :;do
   set -f
   #ui button 150 next 800 150 $LAUNCHER
   ui button 150 next 800 150 "Add Profile"
-  ui button 150 next 800 150 $([ -d /home/root/.local/share/remarkable-cipher ] && echo -n Decrypt)
+  ui button 150 next 800 150 $(encryption_button)
   ui button 150 next 800 150 Quit
   ui label 150 next 800 150 $MESSAGEA
   ui label 150 next 800 150 $MESSAGEB
@@ -127,6 +129,18 @@ while :;do
   display
   buttonpress
 done
+}
+function scene_addprofile(){
+  reset
+  add justify left
+  ui label  150 150  800 150 reMarvin - Add Profile
+  ui label  150 next  800 150 Please enter Name for new Profile
+  ui textinput  150 next  800 150 
+  ui button  150 next  800 150 Back
+  display
+  buttonpress
+  NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+  mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
 }
 function scene_ask_reset(){
         reset
@@ -168,6 +182,49 @@ function scene_decrypt(){
 
         display
         password_decrypt
+}
+function scene_encrypt(){
+	if run_gocryptfs_checks 
+	then
+		reset
+		add justify left
+
+		# Add Input field
+		ui label 50 160 1300 100 You need to specify a password.
+		ui textinput 50 50 1300 100
+		ui label 50 next 1300 100 Enter password above, then press \'done\'
+
+		display
+		password_encrypt && MESSAGEA="Successfully encrypted!" && MESSAGEB="You will need the password next time."
+		return 0
+	else
+		reset
+		add justify left
+
+		# Add Input field
+		ui label 50 160 1300 100 Error: Not all required tools are installed.
+		ui button 50 next 1300 100 Go back
+
+		display
+		return 0
+	fi
+}
+function scene_undo_encrypt(){
+	reset
+	add justify left
+
+	# Add Input field
+	ui label 50 160 1300 100 You are about to undo encryption
+	ui label 50 next 1300 100 on your selected profile.
+	ui label 50 next 1300 100 
+	ui label 50 next 1300 100 Are you sure you want to proceed?
+	ui label 50 next 1300 100 Type \"remove encryption\" below
+	ui textinput 50 50 1300 100
+
+	display
+        message="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+	[[ $message == "remove encryption" ]] && undo_encrypt
+	return 0
 }
 
 # Initial Setup functions and scenes
@@ -260,6 +317,44 @@ function setup_profiles(){
     
 }
 
+# Encryption functions
+function password_encrypt(){
+        newpass="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+	cd $LOCAL/share/
+	mv remarkable remarkable-tmp
+	mkdir remarkable remarkable-cipher
+	echo $newpass|gocryptfs -init remarkable-cipher
+	echo $newpass|gocryptfs remarkable-cipher remarkable
+	mv remarkable-tmp/* remarkable &&\
+                rm -r remarkable-tmp
+}
+function undo_encrypt(){
+        echo running undo_encrypt
+	# This function assumes that the directory is already mounted and decrypted. The corresponding scene should take care of that.
+	kill $(pgrep xochitl)
+	cd $LOCAL/share/
+	mkdir remarkable-tmp
+	mv remarkable/* remarkable-tmp/
+	fusermount -u remarkable &&\
+            chattr -R -i remarkable &&\
+            rm -r remarkable remarkable-cipher &&\
+            mv remarkable-tmp remarkable
+}
+function encryption_button(){
+	if check_mountpoint remarkable > /dev/null
+	then
+		echo -n Undo Encryption
+	elif [ -d /home/root/.local/share/remarkable-cipher ] 
+        then
+		echo -n Decrypt
+	elif check_mountpoint share > /dev/null	
+	then
+		echo -n Encrypt Profile
+	else
+		echo -n ""
+	fi
+}
+
 # Mounting and decryption functions
 function clean_environment(){
         #Stop xochitl and unmount share
@@ -268,17 +363,17 @@ function clean_environment(){
         umount /home/root/.local/share/remarkable
         umount /home/root/.local/share
 }
+function check_xochitl(){
+	pgrep xochitl
+}
 function check_mountpoint(){
-	pgrep xochitl ||\
-        mount | grep /home/root/.local/share 
+        mount | grep $@
 }
 function run_gocryptfs_checks(){
   # Check if gocryptfs is in PATH
   which $GOCRYPTFS||return 1
   # Check if fusermount in PATH 
   which fusermount||return 1
-  # Check if the mountpoint is empty
-  [[ -z $(ls $MOUNTPOINT) ]]||return 1 
   # All good? Return 0
   return 0
 }
@@ -289,7 +384,7 @@ function password_decrypt(){
   decrypt && return 0 || return 1
 }
 function decrypt(){
-	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN && export MESSAGEA="Successfully decrypted!"&&return 0
+	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN && export MESSAGEA="Successfully decrypted!" && MESSAGEB="You may start xochitl now." &&return 0
 	export MESSAGEA="Error decrypting!"
 	return 1
 }
@@ -300,10 +395,10 @@ echo ""|simple
 sleep 1
 
 # If reMarvin is not yet set up, run setup function.
-[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
+[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || check_xochitl || scene_setup
 
 # If profile is already mounted, ask to unmount
-check_mountpoint && scene_ask_reset && clean_environment 
+check_mountpoint $LOCAL/share && scene_ask_reset && clean_environment 
 
 # Check if marker file exists to know everything is right, then run main loop. Else print out warning.
 if [[ -f /home/root/.local/share/remarvin ]];
