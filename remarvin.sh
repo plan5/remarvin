@@ -141,6 +141,7 @@ function scene_addprofile(){
   ui label  150 150  800 150 "reMarvin - Add Profile"
   ui label  150 next  800 150 "Please enter Name for new Profile"
   ui textinput  150 next  800 150 
+  ui label  150 next  800 150 
   ui button  150 next  800 150 "Back"
   display
   buttonpress||return
@@ -196,11 +197,12 @@ function scene_encrypt(){
 		add justify left
 
 		# Add Input field
-		ui label 50 160 1300 100 You need to specify a password.
 		ui textinput 50 50 1300 100
+		ui label 50 160 1300 100 You need to specify a password.
 		ui label 50 next 1300 100 Enter password above, then press \'done\'
+		ui button 50 next 1300 100 "Back"
 
-		display
+		display||return 
 		password_encrypt && MESSAGEA="Successfully encrypted!" && MESSAGEB="You will need the password next time."
 		return 0
 	else
