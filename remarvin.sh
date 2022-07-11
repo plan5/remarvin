@@ -146,6 +146,7 @@ function scene_addprofile(){
   display||return
   buttonpress||return
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+  [[ $NEWNAME == "" ]]&&return
   mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
   mount_profile Profile-$NEWNAME
 }
@@ -332,6 +333,7 @@ function setup_profiles(){
 # Encryption functions
 function password_encrypt(){
         newpass="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+	[[ $newpass == "" ]]&&return 1
 	cd $LOCAL/share/
 	mv remarkable remarkable-tmp
 	mkdir remarkable remarkable-cipher
