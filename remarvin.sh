@@ -138,15 +138,15 @@ done
 function scene_addprofile(){
   reset
   add justify left
-  ui label  150 150  800 150 reMarvin - Add Profile
-  ui label  150 next  800 150 Please enter Name for new Profile
+  ui label  150 150  800 150 "reMarvin - Add Profile"
+  ui label  150 next  800 150 "Please enter Name for new Profile"
   ui textinput  150 next  800 150 
-  ui button  150 next  800 150 Back
+  ui button  150 next  800 150 "Back"
   display
   buttonpress
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
   mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
-  mount_profile $NEWNAME
+  mount_profile Profile-$NEWNAME
 }
 function scene_ask_reset(){
         reset
