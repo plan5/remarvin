@@ -60,7 +60,7 @@ function buttonpress(){
     "Decrypt")
        scene_decrypt
        ;;
-    "Encrypt")
+    "Encrypt Profile")
        scene_encrypt
        ;;
     "Undo Encryption")
@@ -68,6 +68,9 @@ function buttonpress(){
        ;;
     "Add Profile")
        scene_addprofile
+       ;;
+    "Back")
+       scene_main
        ;;
     "Quit")
        exit 0
@@ -133,6 +136,7 @@ function scene_addprofile(){
   ui label  150 150  800 150 reMarvin - Add Profile
   ui label  150 next  800 150 Please enter Name for new Profile
   ui textinput  150 next  800 150 
+  ui button  150 next  800 150 Back
   display
   buttonpress
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
@@ -191,7 +195,7 @@ function scene_encrypt(){
 		ui label 50 next 1300 100 Enter password above, then press \'done\'
 
 		display
-		password_encrypt
+		password_encrypt && MESSAGEA="Successfully encrypted!" && MESSAGEB="You will need the password next time."
 		return 0
 	else
 		reset
@@ -218,7 +222,8 @@ function scene_undo_encrypt(){
 	ui textinput 50 50 1300 100
 
 	display
-	[ $RETURN == "remove encryption" ] && undo_encrypt
+        message="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
+	[[ $message == "remove encryption" ]] && undo_encrypt
 	return 0
 }
 
@@ -324,24 +329,25 @@ function password_encrypt(){
                 rm -r remarkable-tmp
 }
 function undo_encrypt(){
+        echo running undo_encrypt
 	# This function assumes that the directory is already mounted and decrypted. The corresponding scene should take care of that.
 	kill $(pgrep xochitl)
 	cd $LOCAL/share/
 	mkdir remarkable-tmp
 	mv remarkable/* remarkable-tmp/
 	fusermount -u remarkable &&\
-            chattr -R -i remarkable remarvin &&\
-            rm -r remarvin remarkable remarkable-cipher&&\
+            chattr -R -i remarkable &&\
+            rm -r remarkable remarkable-cipher &&\
             mv remarkable-tmp remarkable
 }
 function encryption_button(){
-	if check_mountpoint remarkable
+	if check_mountpoint remarkable > /dev/null
 	then
 		echo -n Undo Encryption
 	elif [ -d /home/root/.local/share/remarkable-cipher ] 
         then
 		echo -n Decrypt
-	elif check_mountpoint share	
+	elif check_mountpoint share > /dev/null	
 	then
 		echo -n Encrypt Profile
 	else
@@ -368,8 +374,6 @@ function run_gocryptfs_checks(){
   which $GOCRYPTFS||return 1
   # Check if fusermount in PATH 
   which fusermount||return 1
-  # Check if the mountpoint is empty
-  [[ -z $(ls $MOUNTPOINT) ]]||return 1 
   # All good? Return 0
   return 0
 }
