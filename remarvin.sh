@@ -143,7 +143,7 @@ function scene_addprofile(){
   ui textinput  150 next  800 150 
   ui label  150 next  800 150 
   ui button  150 next  800 150 "Back"
-  display
+  display||return
   buttonpress||return
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
   mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
@@ -184,10 +184,11 @@ function scene_decrypt(){
 
         # Add Input field
         ui label 50 160 1300 100 Enter password above, then press \'done\'
+  ui button  150 next  800 150 "Back"
         ui label 50 next 1300 100 $MESSAGEA
         ui textinput 50 50 1300 100
 
-        display
+        display||return
         password_decrypt
 }
 function scene_encrypt(){
@@ -227,9 +228,12 @@ function scene_undo_encrypt(){
 	ui label 50 next 1300 100 
 	ui label 50 next 1300 100 Are you sure you want to proceed?
 	ui label 50 next 1300 100 Type \"remove encryption\" below
+	ui label 50 next 1300 100 
+	ui button 50 next 1300 100 "Back"
 	ui textinput 50 50 1300 100
 
-	display
+
+	display||return
         message="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
 	[[ $message == "remove encryption" ]] && undo_encrypt
 	return 0
