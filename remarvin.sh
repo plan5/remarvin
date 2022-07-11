@@ -58,7 +58,7 @@ function buttonpress(){
        scene_addprofile
        ;;
     "Back")
-       scene_main
+       return 1
        ;;
     "Quit")
        exit 0
@@ -143,7 +143,7 @@ function scene_addprofile(){
   ui textinput  150 next  800 150 
   ui button  150 next  800 150 "Back"
   display
-  buttonpress
+  buttonpress||return
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
   mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
   mount_profile Profile-$NEWNAME
