@@ -39,19 +39,7 @@ function buttonpress(){
   case $button in
     "Profile-"*)
        echo Profile Button pressed
-       umount /home/root/.local/share; mount --bind /home/root/.local/$button /home/root/.local/share
-       if [[ -e /home/root/.local/share/remarkable-cipher ]] 
-		then
-			#systemctl start gocryptfs-gui.service
-			#/opt/bin/gocryptfs-gui.sh
-			echo "Profile appears to be encrypted"
-			export MESSAGEA="Profile appears to be encrypted."
-			export MESSAGEB="You should decrypt before starting xochitl."
-		else
-			echo "Profile appears not to be encrypted."
-			export MESSAGEA="Profile appears not to be encrypted."
-			export MESSAGEB="You may launch xochitl now."
-       fi
+       mount_profile $button
        ;;
     "$LAUNCHER")
        systemctl start $LAUNCHER;
@@ -108,6 +96,23 @@ function confirmation_dialog(){
 	# This function will take a message as an argument, print it and require the user to confirm
 	return
 }
+function mount_profile(){
+       profile=$1
+       check_mountpoint share && umount /home/root/.local/share && export MESSAGEA="Profile unmounted." || export MESSAGEA="Error unmounting current profile"
+       mount --bind /home/root/.local/$profile /home/root/.local/share
+       if [[ -e /home/root/.local/share/remarkable-cipher ]] 
+		then
+			#systemctl start gocryptfs-gui.service
+			#/opt/bin/gocryptfs-gui.sh
+			echo "Profile appears to be encrypted"
+			export MESSAGEA="Profile appears to be encrypted."
+			export MESSAGEB="You should decrypt before starting xochitl."
+		else
+			echo "Profile appears not to be encrypted."
+			export MESSAGEA="Profile appears not to be encrypted."
+			export MESSAGEB="You may launch xochitl now."
+       fi
+}
 
 # Scenes
 function scene_main(){
@@ -141,6 +146,7 @@ function scene_addprofile(){
   buttonpress
   NEWNAME="$(echo "${RESULT}" | awk -F ": " '{print $3}')"
   mkdir -p /home/root/.local/Profile-$NEWNAME/remarkable
+  mount_profile $NEWNAME
 }
 function scene_ask_reset(){
         reset
