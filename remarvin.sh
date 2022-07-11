@@ -108,7 +108,7 @@ while :;do
   set -f
   #ui button 150 next 800 150 $LAUNCHER
   ui button 150 next 800 150 "Add Profile"
-  ui button 150 next 800 150 $([ -d /home/root/.local/share/remarkable-cipher ] && echo -n Decrypt)
+  ui button 150 next 800 150 $(encryption_command)
   ui button 150 next 800 150 Quit
   ui label 150 next 800 150 $MESSAGEA
   ui label 150 next 800 150 $MESSAGEB
@@ -177,9 +177,8 @@ function scene_encrypt(){
 
 		# Add Input field
 		ui label 50 160 1300 100 You need to specify a password.
-		ui label 50 next 1300 100 Enter password above, then press \'done\'
-		ui label 50 next 1300 100 $MESSAGEA
 		ui textinput 50 50 1300 100
+		ui label 50 next 1300 100 Enter password above, then press \'done\'
 
 		display
 		password_encrypt
@@ -312,6 +311,12 @@ function undo_encrypt(){
             rm -r remarvin remarkable remarkable-cipher&&\
             mv remarkable-tmp remarkable
 }
+function encryption_command(){
+        if [ -d /home/root/.local/share/remarkable-cipher ] 
+        then
+                        echo -n Decrypt
+                elif [ -d /home/root/.local/share/remarkable ] && 
+}
 
 # Mounting and decryption functions
 function clean_environment(){
@@ -321,8 +326,10 @@ function clean_environment(){
         umount /home/root/.local/share/remarkable
         umount /home/root/.local/share
 }
+function check_xochitl(){
+	pgrep xochitl
+}
 function check_mountpoint(){
-	pgrep xochitl ||\
         mount | grep /home/root/.local/share 
 }
 function run_gocryptfs_checks(){
@@ -353,7 +360,7 @@ echo ""|simple
 sleep 1
 
 # If reMarvin is not yet set up, run setup function.
-[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || scene_setup
+[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint || check_xochitl || scene_setup
 
 # If profile is already mounted, ask to unmount
 check_mountpoint && scene_ask_reset && clean_environment 
