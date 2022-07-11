@@ -46,7 +46,7 @@ function buttonpress(){
 			#/opt/bin/gocryptfs-gui.sh
 			echo "Profile appears to be encrypted"
 			export MESSAGEA="Profile appears to be encrypted."
-			export MESSAGEB="You should decrypt before\nstarting xochitl."
+			export MESSAGEB="You should decrypt before starting xochitl."
 		else
 			echo "Profile appears not to be encrypted."
 			export MESSAGEA="Profile appears not to be encrypted."
@@ -222,7 +222,6 @@ function scene_undo_encrypt(){
 	return 0
 }
 
-
 # Initial Setup functions and scenes
 function scene_setup(){
   reset
@@ -381,7 +380,7 @@ function password_decrypt(){
   decrypt && return 0 || return 1
 }
 function decrypt(){
-	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN && export MESSAGEA="Successfully decrypted!"&&return 0
+	echo "$password"|nohup $GOCRYPTFS $CIPHER $PLAIN && export MESSAGEA="Successfully decrypted!" && MESSAGEB="You may start xochitl now." &&return 0
 	export MESSAGEA="Error decrypting!"
 	return 1
 }
