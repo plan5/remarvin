@@ -101,6 +101,10 @@ function ui_scroller(){
             ui button 150 next 800 150 "More Profiles"
         fi
 }
+function confirmation_dialog(){
+	# This function will take a message as an argument, print it and require the user to confirm
+	return
+}
 
 # Scenes
 function scene_main(){
