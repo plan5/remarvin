@@ -9,7 +9,7 @@ remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
 ### Prerequisites
 You may install the following as packages from [toltec](https://github.com/toltec-dev/toltec).
 * reMarvin uses rmkit `simple` to draw its interface.
-* For `simple`, `rm2fb` is needed (this will be the available if you use a launcher).
+* On a reMarkable 2 device, for `simple`, `rm2fb` is needed (this will be the available if you use a launcher).
 * For encryption/decryption, `gocryptfs` is needed.
 
 ### Setting it up
