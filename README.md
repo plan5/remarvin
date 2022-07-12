@@ -2,6 +2,8 @@
 ## Work in progress
 A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (not the cloud).
 
+The perfomance impact seems negligible to me for writing. I've had crashes when drawing, so fast and complex penstrokes might be an issue with the writing delay due to encryption.
+
 This Readme helps drafting remarvin for now. Once it is in a working state, the contents will be moved to a new file or they will be removed.
 
 remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
