@@ -1,12 +1,10 @@
 # remarvin
-## Work in progress
-A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (not the cloud).
+## Overview
+A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (no encryption for the cloud).
 
-The perfomance impact seems negligible to me for writing. I've had crashes when drawing, so fast and complex penstrokes might be an issue with the writing delay due to encryption.
+The perfomance impact seems negligible to me for writing. I've experienced some crashes when drawing, so fast and complex penstrokes might be an issue with the writing delay due to encryption.
 
-This Readme helps drafting remarvin for now. Once it is in a working state, the contents will be moved to a new file or they will be removed.
-
-remarvin is being built with [simple app script](https://rmkit.dev/apps/sas)
+remarvin is built with [simple app script](https://rmkit.dev/apps/sas)
 
 ### Prerequisites
 You may install the following as packages from [toltec](https://github.com/toltec-dev/toltec).
@@ -41,10 +39,11 @@ Your notebooks will be moved around and might be deleted during setup (although 
     * Select account
     * Decrypt (if selected account is encrypted)
     * Danger Zone (partially possible with included shell scripts)
-      * *Optional:* Encrypt an account
-      * *Optional:* Permanently decrypt account
+    * Encrypt an account
+    * Permanently decrypt account
+    * Scroll account list (if there are too many accounts)
 6. Future functions in the GUI:
-    * Select launcher (if run before launchers).
+    * Select launcher (if reMarvin is run before launchers).
     * Start selected launcher
     * Delete an account
-    * Scroll account list (currently it may overflow if too many accounts exist)
+
