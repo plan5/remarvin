@@ -6,7 +6,7 @@ remarvin is built with [simple app script](https://rmkit.dev/apps/sas)
 
 ### Prerequisites
 You may install the following as packages from [toltec](https://github.com/toltec-dev/toltec).
-* reMarvin uses rmkit `simple` to draw its interface.
+* remarvin uses rmkit `simple` to draw its interface.
 * On a reMarkable 2 device, for `simple`, `rm2fb` is needed (this will be the available if you use a launcher).
 * For encryption/decryption, `gocryptfs` is needed.
 
@@ -20,7 +20,7 @@ Your notebooks will be moved around and might be deleted during setup (although 
 
 4. Run remarvin.sh in your preferred way, it's been tested with `oxide` launcher.
 
-5. Remarvin will now show you a list with one entry: `Profile-Main`. Tap on it to mount it. You will see a message in the bottom if it worked. (Restart reMarvin to unmount).
+5. Remarvin will now show you a list with one entry: `Profile-Main`. Tap on it to mount it. You will see a message in the bottom if it worked. (Restart remarvin to unmount).
 
 6. (Optional): Add another profile via the `Add profile` button. You will be prompted a name for the new profile. Select it and run xochitl to use it. **Again, remember not to use cloud synchronization in this case.**
 
@@ -41,7 +41,7 @@ Your notebooks will be moved around and might be deleted during setup (although 
     * Permanently decrypt account
     * Scroll account list (if there are too many accounts)
 6. Future functions in the GUI:
-    * Select launcher (if reMarvin is run before launchers).
+    * Select launcher (if remarvin is run before launchers).
     * Start selected launcher
     * Delete an account
 

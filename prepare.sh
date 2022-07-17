@@ -48,7 +48,7 @@ function setup(){
 
 if [[ -f /home/root/.local/share/remarvin ]];
 then
-	echo "reMarvin seems to be set up already."
+	echo "remarvin seems to be set up already."
 	exit 0
 fi
 

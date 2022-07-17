@@ -1,5 +1,5 @@
 [Unit]
-Description=reMarvin
+Description=remarvin
 After=home.mount rm2fb.service
 
 [Service]

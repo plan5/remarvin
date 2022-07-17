@@ -120,7 +120,7 @@ while :;do
   reset
   add justify left
 
-  ui label  150 150  800 150 reMarvin
+  ui label  150 150  800 150 remarvin
   set +f
   ui_scroller $LOCAL/Profile-*
   set -f
@@ -138,7 +138,7 @@ done
 function scene_addprofile(){
   reset
   add justify left
-  ui label  150 150  800 150 "reMarvin - Add Profile"
+  ui label  150 150  800 150 "remarvin - Add Profile"
   ui label  150 next  800 150 "Please enter Name for new Profile"
   ui textinput  150 next  800 150 
   ui label  150 next  800 150 
@@ -154,7 +154,7 @@ function scene_ask_reset(){
         reset
         add justify left
 
-        ui label  150 150  800 150 reMarvin
+        ui label  150 150  800 150 remarvin
         ui label 150 next 800 150 "A profile is already mounted"
         ui label 150 next 800 150 "or xochitl might be running."
         ui label 150 next 800 150 "Shall we unmount all profiles and end"
@@ -170,7 +170,7 @@ function scene_warning(){
   reset
   add justify left
 
-  ui label 50 150 800 150 reMarvin has not been set up properly
+  ui label 50 150 800 150 remarvin has not been set up properly
   ui label 50 next 800 150 or you have already mounted a profile.  
   ui label 50 next 800 150 Please refer to 
   ui label 50 next 800 150 https://github.com/plan5/remarvin/README.md 
@@ -244,11 +244,11 @@ function scene_undo_encrypt(){
 function scene_setup(){
   reset
   add justify left 
-  ui label  150 150  800 150 reMarvin
+  ui label  150 150  800 150 remarvin
   ui label 150 next 800 150 
   ui label 150 next 800 150  "Welcome!"
   ui label 150 next 800 150 
-  ui label 150 next 800 150  "reMarvin has not been set up yet."
+  ui label 150 next 800 150  "remarvin has not been set up yet."
   ui label 150 next 800 150 
   ui label 150 next 800 150  "ATTENTION: This Code is not well tested."
   ui label 150 next 800 150 
@@ -275,7 +275,7 @@ function scene_setup(){
 function confirm_prepare(){
   reset
   add justify left
-  ui label  150 150  800 150 reMarvin
+  ui label  150 150  800 150 remarvin
   ui label 150 next 800 150 "Do you understand that you are about to make changes to your"
   ui label 150 next 800 150 "system that may lead to data loss or other unforeseen behavior and that"
   ui label 150 next 800 150 "you are doing this on your own responsibility?"
@@ -408,7 +408,7 @@ function decrypt(){
 echo ""|simple
 sleep 1
 
-# If reMarvin is not yet set up, run setup function.
+# If remarvin is not yet set up, run setup function.
 [[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || check_xochitl || scene_setup
 
 # If profile is already mounted, ask to unmount
