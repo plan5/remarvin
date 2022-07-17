@@ -409,10 +409,10 @@ echo ""|simple
 sleep 1
 
 # If remarvin is not yet set up, run setup function.
-[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || check_xochitl || scene_setup
+[[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || scene_setup
 
 # If profile is already mounted, ask to unmount
-check_mountpoint $LOCAL/share && scene_ask_reset && clean_environment 
+check_xochitl || check_mountpoint $LOCAL/share && scene_ask_reset && clean_environment 
 
 # Check if marker file exists to know everything is right, then run main loop. Else print out warning.
 if [[ -f /home/root/.local/share/remarvin ]];
