@@ -2,8 +2,6 @@
 ## Overview
 A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (no encryption for the cloud).
 
-The perfomance impact seems negligible to me for writing. I've experienced some crashes when drawing, so fast and complex penstrokes might be an issue with the writing delay due to encryption.
-
 remarvin is built with [simple app script](https://rmkit.dev/apps/sas)
 
 ### Prerequisites
@@ -26,7 +24,7 @@ Your notebooks will be moved around and might be deleted during setup (although 
 
 6. (Optional): Add another profile via the `Add profile` button. You will be prompted a name for the new profile. Select it and run xochitl to use it. **Again, remember not to use cloud synchronization in this case.**
 
-7. (Optional) Install `gocryptfs` via toltec and set up encryption by selecting a profile in `remarvin` and then selecting `Encrypt`, then follow the onscreen instructions.
+7. (Optional) Install `gocryptfs` via toltec and set up encryption by selecting a profile in `remarvin` and then selecting `Encrypt`, then follow the onscreen instructions. The perfomance impact of using encryption seems negligible to me for writing. I've experienced some crashes when drawing, so fast and complex penstrokes might be an issue with the writing delay due to encryption. 
 
 ### Status / Ideas
 1. remarvin can be started by a launcher ~~or at boot instead of/before xochitl/launchers~~
