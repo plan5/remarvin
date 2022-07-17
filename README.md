@@ -14,7 +14,7 @@ You may install the following as packages from [toltec](https://github.com/tolte
 1. **Create a Backup!** Seriously, things might still go wrong.
 Your notebooks will be moved around and might be deleted during setup (although they shouldn't).
 
-2. **Disable cloud synchronization!** The user settings currently remain the same across profiles. That means you may lose files if you change your profile and keep synchronizing. Alternatively, you can take care not to activate Wi-Fi or only use a single profile (you can still use the device encryption).
+2. **Disable cloud synchronization or WiFi!** The user settings currently remain the same across profiles. That means you may lose files if you change your profile and keep synchronizing. If you use only one profile, or disable WiFi there should be no problems. Note that the files on the cloud will not be encrypted.
 
 3. Install `simple` (best way to do this is via toltec).
 
