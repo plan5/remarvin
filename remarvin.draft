@@ -1,0 +1,8 @@
+# Copyright (c) 2020 The Toltec Contributors
+# SPDX-License-Identifier: MIT
+
+name=remarvin
+desc=Multi-account and encryption manager
+imgFile=remarvin
+call=/opt/bin/remarvin.sh
+term=killall -9 remarvin
