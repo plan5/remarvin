@@ -1,7 +1,7 @@
 # remarvin
 
-**Warning**
-remarvin is currently (2022-12-19) not working properly alongside oxide. This is probably related to tarnish (the wrapper service for oxide) running xochitl in a chroot that doesn't include the bind mount as intended by remarvin. Investigation on how to fix this started here: https://github.com/plan5/remarvin/issues/6
+> **Warning**
+> remarvin is currently (2022-12-19) not working properly alongside oxide. This is presumably related to tarnish (the wrapper service for oxide) running xochitl in a chroot that doesn't include the bind mount as intended by remarvin. Investigation on how to fix this started here: https://github.com/plan5/remarvin/issues/6
 
 ## Overview
 A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (no encryption for the cloud).
