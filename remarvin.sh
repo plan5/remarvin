@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #export LD_PRELOAD=/opt/lib/librm2fb_client.so.1.0.1
 CIPHER=/home/root/.local/share/remarkable-cipher
