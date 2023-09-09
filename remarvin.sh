@@ -98,7 +98,7 @@ function confirmation_dialog(){
 }
 function mount_profile(){
        profile=$1
-       check_mountpoint share && umount /home/root/.local/share && export MESSAGEA="Profile unmounted." || export MESSAGEA="Error unmounting current profile"
+       check_mountpoint $LOCAL/share && umount /home/root/.local/share && export MESSAGEA="Profile unmounted." || export MESSAGEA="Error unmounting current profile"
        mount --bind /home/root/.local/$profile /home/root/.local/share
        if [[ -e /home/root/.local/share/remarkable-cipher ]] 
 		then
@@ -355,13 +355,13 @@ function undo_encrypt(){
             mv remarkable-tmp remarkable
 }
 function encryption_button(){
-	if check_mountpoint remarkable > /dev/null
+	if check_mountpoint $LOCAL/share/remarkable > /dev/null
 	then
 		echo -n Undo Encryption
 	elif [ -d /home/root/.local/share/remarkable-cipher ] 
         then
 		echo -n Decrypt
-	elif check_mountpoint share > /dev/null	
+	elif check_mountpoint $LOCAL/share > /dev/null
 	then
 		echo -n Encrypt Profile
 	else
