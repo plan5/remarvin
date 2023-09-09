@@ -28,7 +28,7 @@ display(){
   IFS=$(echo -en "\n\b")
   script=$(for line in ${SCENE[@]}; do echo $line; done)
   IFS=" "
-  RESULT=$(echo ${script} | /opt/bin/simple)
+  RESULT=$(echo ${script} | /opt/bin/simple 2> /dev/null)
 }
 
 # Auxiliary Functions
