@@ -415,10 +415,6 @@ function decrypt(){
 }
 
 
-# Delay start a little to avoid display glitch
-echo ""|simple
-sleep 1
-
 # If remarvin is not yet set up, run setup function.
 [[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || scene_setup
 
