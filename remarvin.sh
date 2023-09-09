@@ -179,6 +179,19 @@ function scene_warning(){
   display
   buttonpress
 }
+function scene_xochitl-running(){
+  reset
+  add justify left
+
+  ui label 50 150 800 150 xochitl is currently running
+  ui label 50 next 800 150 Please quit xochitl 
+  ui label 50 next 800 150 then run again or check
+  ui label 50 next 800 150 https://github.com/plan5/remarvin
+  ui button 150 next 800 150 Quit
+
+  display
+  buttonpress
+}
 function scene_decrypt(){
         reset
         add justify left
@@ -371,9 +384,7 @@ function encryption_button(){
 
 # Mounting and decryption functions
 function clean_environment(){
-        #Stop xochitl and unmount share
-        systemctl stop xochitl
-	pgrep xochitl|xargs kill -9
+        #Unmount share
         umount /home/root/.local/share/remarkable
         umount /home/root/.local/share
 }
@@ -412,7 +423,8 @@ sleep 1
 [[ -f /home/root/.local/share/remarvin ]] || check_mountpoint $LOCAL/share || scene_setup
 
 # If profile is already mounted, ask to unmount
-check_xochitl || check_mountpoint $LOCAL/share && scene_ask_reset && clean_environment 
+check_xochitl && scene_xochitl-running
+check_mountpoint $LOCAL/share && scene_ask_reset && clean_environment
 
 # Check if marker file exists to know everything is right, then run main loop. Else print out warning.
 if [[ -f /home/root/.local/share/remarvin ]];
@@ -421,4 +433,5 @@ if [[ -f /home/root/.local/share/remarvin ]];
 	else
 		scene_warning
 fi
+
 
