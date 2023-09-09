@@ -155,10 +155,8 @@ function scene_ask_reset(){
         add justify left
 
         ui label  150 150  800 150 remarvin
-        ui label 150 next 800 150 "A profile is already mounted"
-        ui label 150 next 800 150 "or xochitl might be running."
-        ui label 150 next 800 150 "Shall we unmount all profiles and end"
-        ui label 150 next 800 150 "all xochitl instances?"
+        ui label 150 next 800 150 "A profile is already mounted."
+        ui label 150 next 800 150 "Shall we unmount all profiles?"
         ui button 150 next 800 150 "Unmount"
         ui button 150 next 800 150 "Ignore"
         ui button 150 next 800 150 "Quit"
