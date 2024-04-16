@@ -1,5 +1,21 @@
 # remarvin
 
+> [!Warning]
+> Development of reMarvin is currently stalled. I have updated xochitl beyond 3.8 and therefor lost the possibility to use rm2fb.
+> The script itself should work, though. Be careful with it and you're welcome to report any issues or provide fixes as PRs.
+> See also https://github.com/plan5/remarvin/issues/8
+
+> [!Caution]
+> **Passwords end up in the system logs**
+> Be aware that reMarvin uses rmkit simple apps for its interface, which logs all keypresses.
+> As I recall, the log used to reside in volatile storage but it seems to be located in the root directory.
+> This means that anyone equipped with a pogo-pin adapter and a usb-c breakout board (or with ssh access) can read out your password.
+> To make sure nobody can read the password, use gocryptfs directly until https://github.com/plan5/remarvin/issues/8 has been closed.
+> I have not tried this but you may be able to create a symlink for the logfile to go into tmpfs by entering
+
+``rm /home/root/log.txt*; ln -s /home/root/log.txt /tmp/log.txt``
+
+
 ## Overview
 A (work in progress) multi-account manager for remarkable with an interface to gocryptfs to encrypt and decrypt notebooks on the device (no encryption for the cloud).
 
